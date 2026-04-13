@@ -1,0 +1,42 @@
+[
+  {
+    "_id": "69d504ef8c23637fad922afa",
+    "name": "Admin User",
+    "email": "admin@admin.com",
+    "password": "$2b$10$HgznDV5U.gxD68P8P/k3m.NeOwB8feEC24NhrvBHSLZVCkr.3hoNq",
+    "role": "admin",
+    "__v": 0
+  },
+  {
+    "_id": "69d509ff8a06ea8e70a1ba7a",
+    "name": "Heet Javiya ",
+    "email": "heetjaviya2006@gmail.com",
+    "password": "$2b$10$Hdx0rhyoOqs03Xnq8Z/ya.NoVSBOIab.nE6zQT/s5PXze6Ef9A7Xi",
+    "role": "client",
+    "__v": 0
+  },
+  {
+    "_id": "69d523d98a06ea8e70a1ba7b",
+    "name": "Test",
+    "email": "test@example.com",
+    "password": "$2b$10$DqH/Wuw9d6ohQr75H.eAge.LE203mTE8sgvTG4aG9Lu53E4FEiuj.",
+    "role": "client",
+    "__v": 0
+  },
+  {
+    "_id": "69d524798a06ea8e70a1ba7e",
+    "name": "Admin User",
+    "email": "admin@ihuyg",
+    "password": "$2b$10$hdVYPGDPx1a38ybQERapPuK1gFLEbDVKpqMV7FyNWTEEeN.xmcW9C",
+    "role": "client",
+    "__v": 0
+  },
+  {
+    "_id": "69d620950a0eb12d8498d24e",
+    "name": "heet",
+    "email": "heet@gmail",
+    "password": "$2b$10$6P/2OnM2fTpssgqI6rWsjuSdfUsmtsnUgdw4snfi6LeFVFFOfrTIm",
+    "role": "client",
+    "__v": 0
+  }
+]

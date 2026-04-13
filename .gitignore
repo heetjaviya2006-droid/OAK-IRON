@@ -1,0 +1,12 @@
+node_modules/
+.env
+dist/
+build/
+
+# ADD THESE 👇
+mongodb/
+mongodb-extracted/
+mongodb-extracted2/
+*.zip
+*.exe
+*.pdb
