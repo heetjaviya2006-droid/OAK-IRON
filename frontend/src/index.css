@@ -84,6 +84,16 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
+/* Admin sidebar nav links - override global nav-link dark color */
+.admin-sidebar .nav-link {
+  color: #ffffff !important;
+  margin: 0;
+}
+
+.admin-sidebar .nav-link::after {
+  display: none;
+}
+
 .btn-primary {
   background-color: var(--primary-color);
   border: none;

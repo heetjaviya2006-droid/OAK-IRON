@@ -18,23 +18,20 @@ const ProductEdit = () => {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
 
-  const isEditMode = id !== 'create';
+  const isEditMode = !!id && id !== 'create';
 
   useEffect(() => {
     if (isEditMode) {
       const fetchProduct = async () => {
         try {
-          const { data } = await axios.get('http://localhost:5000/api/products');
-          const product = data.find(p => p._id === id);
-          if(product) {
-            setName(product.name);
-            setPrice(product.price);
-            setImage(product.image);
-            setBrand(product.brand);
-            setCategory(product.category);
-            setCountInStock(product.countInStock);
-            setDescription(product.description);
-          }
+          const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
+          setName(data.name);
+          setPrice(data.price);
+          setImage(data.image);
+          setBrand(data.brand);
+          setCategory(data.category);
+          setCountInStock(data.countInStock);
+          setDescription(data.description);
         } catch (err) {
           setError('Failed to fetch product');
         }
@@ -68,6 +65,10 @@ const ProductEdit = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (!userInfo || !userInfo.token) {
+      setError('You must be logged in as admin to perform this action.');
+      return;
+    }
     const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
     const productData = { name, price, image, brand, category, countInStock, description };
 
@@ -79,7 +80,8 @@ const ProductEdit = () => {
       }
       navigate('/admin/products');
     } catch (err) {
-      setError('Failed to save product');
+      const msg = err.response?.data?.message || 'Failed to save product';
+      setError(msg);
     }
   };
 

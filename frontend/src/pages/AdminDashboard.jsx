@@ -27,24 +27,20 @@ function AdminDashboard() {
     }
   };
 
-  const createProductHandler = async () => {
-    try {
-      const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-      await axios.post('http://localhost:5000/api/products', {}, config);
-      fetchProducts();
-    } catch (err) {
-      setError('Failed to create product');
-    }
+  // Navigate to the create form instead of silently posting an empty product
+  const createProductHandler = () => {
+    navigate('/admin/products/create');
   };
 
   const deleteHandler = async (id) => {
+    if (!id) return;
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
         const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
         await axios.delete(`http://localhost:5000/api/products/${id}`, config);
         fetchProducts();
       } catch (err) {
-        setError('Failed to delete product');
+        setError(err.response?.data?.message || 'Failed to delete product');
       }
     }
   };
@@ -57,8 +53,8 @@ function AdminDashboard() {
           + Create Product
         </Button>
       </div>
-      
-      {error && <Alert variant="danger">{error}</Alert>}
+
+      {error && <Alert variant="danger" dismissible onClose={() => setError('')}>{error}</Alert>}
 
       <Table striped bordered hover responsive className="table-sm">
         <thead>
@@ -76,10 +72,17 @@ function AdminDashboard() {
             <tr key={product._id}>
               <td>{product._id}</td>
               <td>{product.name}</td>
-              <td>${product.price}</td>
+              <td>₹{product.price}</td>
               <td>{product.category}</td>
               <td>{product.brand}</td>
               <td>
+                <Button
+                  variant="light"
+                  className="btn-sm me-2 border"
+                  onClick={() => navigate(`/admin/products/${product._id}/edit`)}
+                >
+                  Edit
+                </Button>
                 <Button variant="danger" className="btn-sm" onClick={() => deleteHandler(product._id)}>
                   Delete
                 </Button>
@@ -88,7 +91,7 @@ function AdminDashboard() {
           ))}
           {products.length === 0 && (
             <tr>
-              <td colSpan="6" className="text-center py-4">No products found. Click "Create Product" to add sample data.</td>
+              <td colSpan="6" className="text-center py-4">No products found. Click "+ Create Product" to add one.</td>
             </tr>
           )}
         </tbody>

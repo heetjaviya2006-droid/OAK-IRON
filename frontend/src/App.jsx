@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navigation from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -27,47 +27,58 @@ import OrderList from './pages/admin/OrderList';
 import UserList from './pages/admin/UserList';
 import Settings from './pages/admin/Settings';
 
+// Wrapper to conditionally show nav/footer outside admin
+function AppShell() {
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith('/admin');
+
+  return (
+    <div className="app">
+      {!isAdmin && <Navigation />}
+
+      <Routes>
+        {/* Client Routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/orders" element={<OrderHistory />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<Terms />} />
+
+        {/* Admin Routes */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<DashboardOverview />} />
+          <Route path="products" element={<ProductList />} />
+          <Route path="products/create" element={<ProductEdit />} />
+          <Route path="products/:id/edit" element={<ProductEdit />} />
+          <Route path="orders" element={<OrderList />} />
+          <Route path="users" element={<UserList />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+      </Routes>
+
+      {!isAdmin && <Footer />}
+    </div>
+  );
+}
+
 function App() {
   return (
     <CartProvider>
       <BrowserRouter>
-        <div className="app">
-          <Navigation />
-          
-          <Routes>
-            {/* Client Routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/orders" element={<OrderHistory />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/terms" element={<Terms />} />
-
-            {/* Admin Routes */}
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<DashboardOverview />} />
-              <Route path="products" element={<ProductList />} />
-              <Route path="products/:id/edit" element={<ProductEdit />} />
-              <Route path="products/create" element={<ProductEdit />} />
-              <Route path="orders" element={<OrderList />} />
-              <Route path="users" element={<UserList />} />
-              <Route path="settings" element={<Settings />} />
-            </Route>
-          </Routes>
-
-          <Footer />
-        </div>
+        <AppShell />
       </BrowserRouter>
     </CartProvider>
   );
 }
 
 export default App;
+

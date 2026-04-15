@@ -13,9 +13,9 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/products');
-        const found = data.find(p => p._id === id);
-        if(found) setProduct(found);
+        if (!id) return;
+        const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
+        setProduct(data);
       } catch (err) {
         console.error(err);
       }
@@ -37,7 +37,7 @@ const ProductDetails = () => {
         </Col>
         <Col md={6} className="d-flex flex-column justify-content-center">
           <h3 className="fw-bold">{product.name}</h3>
-          <h4 className="text-muted mb-4">${product.price}</h4>
+          <h4 className="text-muted mb-4">₹{product.price}</h4>
           <p>{product.description}</p>
           <div className="mb-3">
             <strong>Status:</strong> {product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}
