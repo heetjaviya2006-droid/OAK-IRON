@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import API_BASE from '../config';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -13,7 +14,7 @@ function Login() {
     e.preventDefault();
     try {
       const config = { headers: { 'Content-Type': 'application/json' } };
-      const { data } = await axios.post('http://localhost:5000/api/auth/login', { email, password }, config);
+      const { data } = await axios.post(`${API_BASE}/api/auth/login`, { email, password }, config);
       localStorage.setItem('userInfo', JSON.stringify(data));
       navigate(data.role === 'admin' ? '/admin' : '/');
       window.location.reload();

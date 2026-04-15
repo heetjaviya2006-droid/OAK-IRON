@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Button, Table, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API_BASE from '../config';
 
 function AdminDashboard() {
   const [products, setProducts] = useState([]);
@@ -20,7 +21,7 @@ function AdminDashboard() {
 
   const fetchProducts = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/products');
+      const { data } = await axios.get(`${API_BASE}/api/products`);
       setProducts(data);
     } catch (err) {
       setError('Failed to fetch products');
@@ -37,7 +38,7 @@ function AdminDashboard() {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
         const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-        await axios.delete(`http://localhost:5000/api/products/${id}`, config);
+        await axios.delete(`${API_BASE}/api/products/${id}`, config);
         fetchProducts();
       } catch (err) {
         setError(err.response?.data?.message || 'Failed to delete product');

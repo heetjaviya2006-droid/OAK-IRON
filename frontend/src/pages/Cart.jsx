@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Button, ListGroup, Image } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import API_BASE from '../config';
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const Cart = () => {
                   <Row className="align-items-center">
                     <Col md={2}>
                       <Image
-                        src={item.image?.startsWith('/') ? `http://localhost:5000${item.image}` : item.image}
+                        src={item.image?.startsWith('/') ? `${API_BASE}${item.image}` : item.image}
                         alt={item.name}
                         fluid
                         rounded

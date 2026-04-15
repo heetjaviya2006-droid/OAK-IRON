@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
+import API_BASE from '../config';
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -10,7 +11,7 @@ const Shop = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/products');
+        const { data } = await axios.get(`${API_BASE}/api/products`);
         setProducts(data);
       } catch (err) {
         console.error(err);
@@ -39,7 +40,7 @@ const Shop = () => {
           <Col md={3} className="mb-4" key={product._id}>
             <ProductCard 
               id={product._id}
-              image={product.image.startsWith('/') ? `http://localhost:5000${product.image}` : product.image} 
+              image={product.image.startsWith('/') ? `${API_BASE}${product.image}` : product.image} 
               title={product.name} 
               category={product.category} 
               price={product.price} 

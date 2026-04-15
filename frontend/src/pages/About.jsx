@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import API_BASE from '../config';
 
 const About = () => {
   return (
@@ -17,7 +18,7 @@ const About = () => {
         </Col>
         <Col md={6} className="d-flex justify-content-center align-items-center">
           <div className="bg-light w-100 h-100 rounded shadow-sm d-flex justify-content-center align-items-center overflow-hidden" style={{ minHeight: '300px' }}>
-            <img src="http://localhost:5000/uploads/brand.png" alt="Our Brand Story" className="img-fluid w-100 h-100" style={{ objectFit: 'cover' }} />
+            <img src={`${API_BASE}/uploads/brand.png`} alt="Our Brand Story" className="img-fluid w-100 h-100" style={{ objectFit: 'cover' }} />
           </div>
         </Col>
       </Row>

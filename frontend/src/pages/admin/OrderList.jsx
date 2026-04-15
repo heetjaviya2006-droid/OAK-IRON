@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Badge, Alert, Spinner } from 'react-bootstrap';
 import axios from 'axios';
+import API_BASE from '../../config';
 
 const OrderList = () => {
   const [orders, setOrders]   = useState([]);
@@ -14,7 +15,7 @@ const OrderList = () => {
   const fetchOrders = async () => {
     try {
       const config = { headers: { Authorization: `Bearer ${userInfo?.token}` } };
-      const { data } = await axios.get('http://localhost:5000/api/orders', config);
+      const { data } = await axios.get(`${API_BASE}/api/orders`, config);
       setOrders(data);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch orders');
@@ -28,7 +29,7 @@ const OrderList = () => {
   const deliverHandler = async (id) => {
     try {
       const config = { headers: { Authorization: `Bearer ${userInfo?.token}` } };
-      await axios.put(`http://localhost:5000/api/orders/${id}/deliver`, {}, config);
+      await axios.put(`${API_BASE}/api/orders/${id}/deliver`, {}, config);
       fetchOrders();
     } catch (err) {
       setError('Failed to mark as delivered');

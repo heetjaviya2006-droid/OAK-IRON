@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Table, Badge, Alert, Spinner, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API_BASE from '../config';
 
 const OrderHistory = () => {
   const [orders, setOrders]   = useState([]);
@@ -22,7 +23,7 @@ const OrderHistory = () => {
     const fetchOrders = async () => {
       try {
         const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-        const { data } = await axios.get('http://localhost:5000/api/orders/myorders', config);
+        const { data } = await axios.get(`${API_BASE}/api/orders/myorders`, config);
         setOrders(data);
       } catch (err) {
         setError(err.response?.data?.message || 'Failed to fetch orders');
@@ -130,7 +131,7 @@ const OrderHistory = () => {
                   <div key={i} className="d-flex justify-content-between align-items-center py-2 border-bottom">
                     <div className="d-flex align-items-center gap-3">
                       <img
-                        src={item.image?.startsWith('/') ? `http://localhost:5000${item.image}` : item.image}
+                        src={item.image?.startsWith('/') ? `${API_BASE}${item.image}` : item.image}
                         alt={item.name}
                         style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '8px' }}
                         onError={(e) => { e.target.src = 'https://via.placeholder.com/48?text=img'; }}

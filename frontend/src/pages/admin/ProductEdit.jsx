@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API_BASE from '../../config';
 
 const ProductEdit = () => {
   const { id } = useParams();
@@ -24,7 +25,7 @@ const ProductEdit = () => {
     if (isEditMode) {
       const fetchProduct = async () => {
         try {
-          const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
+          const { data } = await axios.get(`${API_BASE}/api/products/${id}`);
           setName(data.name);
           setPrice(data.price);
           setImage(data.image);
@@ -53,7 +54,7 @@ const ProductEdit = () => {
         },
       };
 
-      const { data } = await axios.post('http://localhost:5000/api/upload', formData, config);
+      const { data } = await axios.post(`${API_BASE}/api/upload`, formData, config);
       setImage(data);
       setUploading(false);
     } catch (error) {
@@ -74,9 +75,9 @@ const ProductEdit = () => {
 
     try {
       if (isEditMode) {
-        await axios.put(`http://localhost:5000/api/products/${id}`, productData, config);
+        await axios.put(`${API_BASE}/api/products/${id}`, productData, config);
       } else {
-        await axios.post('http://localhost:5000/api/products', productData, config);
+        await axios.post(`${API_BASE}/api/products`, productData, config);
       }
       navigate('/admin/products');
     } catch (err) {

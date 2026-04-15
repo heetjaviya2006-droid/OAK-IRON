@@ -3,6 +3,7 @@ import { Container, Row, Col, Form, Button, Table, Alert, Badge } from 'react-bo
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
+import API_BASE from '../config';
 
 const Checkout = () => {
   const { cart, clearCart } = useCart();
@@ -46,7 +47,7 @@ const Checkout = () => {
       }));
 
       await axios.post(
-        'http://localhost:5000/api/orders',
+        `${API_BASE}/api/orders`,
         { orderItems, shippingAddress: { address, city, postalCode, country }, paymentMethod, itemsPrice, shippingPrice, totalPrice },
         config
       );
@@ -125,7 +126,7 @@ const Checkout = () => {
                       <td>
                         <div className="d-flex align-items-center gap-3">
                           <img
-                            src={item.image?.startsWith('/') ? `http://localhost:5000${item.image}` : item.image}
+                            src={item.image?.startsWith('/') ? `${API_BASE}${item.image}` : item.image}
                             alt={item.name}
                             style={{ width: '56px', height: '56px', objectFit: 'cover', borderRadius: '8px' }}
                             onError={(e) => { e.target.src = 'https://via.placeholder.com/56x56?text=img'; }}

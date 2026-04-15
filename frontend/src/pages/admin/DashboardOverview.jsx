@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API_BASE from '../../config';
 
 const StatCard = ({ icon, label, value, color, sub }) => (
   <div style={{
@@ -42,15 +43,15 @@ const DashboardOverview = () => {
     const fetchStats = async () => {
       try {
         const config = { headers: { Authorization: `Bearer ${userInfo?.token}` } };
-        const { data } = await axios.get('http://localhost:5000/api/orders/stats', config);
+        const { data } = await axios.get(`${API_BASE}/api/orders/stats`, config);
         setStats(data);
       } catch (err) {
         // Fallback: fetch products, orders, users separately
         try {
           const config = { headers: { Authorization: `Bearer ${userInfo?.token}` } };
           const [prodRes, ordRes] = await Promise.all([
-            axios.get('http://localhost:5000/api/products'),
-            axios.get('http://localhost:5000/api/orders', config),
+            axios.get(`${API_BASE}/api/products`),
+            axios.get(`${API_BASE}/api/orders`, config),
           ]);
           const orders = ordRes.data;
           setStats({

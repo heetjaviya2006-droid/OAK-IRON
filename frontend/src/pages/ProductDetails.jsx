@@ -3,6 +3,7 @@ import { Container, Row, Col, Button, Image } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
+import API_BASE from '../config';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const ProductDetails = () => {
     const fetchProduct = async () => {
       try {
         if (!id) return;
-        const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
+        const { data } = await axios.get(`${API_BASE}/api/products/${id}`);
         setProduct(data);
       } catch (err) {
         console.error(err);
@@ -33,7 +34,7 @@ const ProductDetails = () => {
     <Container className="py-5" style={{ minHeight: '80vh', paddingTop: '100px' }}>
       <Row className="mt-5">
         <Col md={6}>
-          <Image src={product.image?.startsWith('/') ? `http://localhost:5000${product.image}` : product.image} alt={product.name} fluid className="rounded shadow-sm" />
+          <Image src={product.image?.startsWith('/') ? `${API_BASE}${product.image}` : product.image} alt={product.name} fluid className="rounded shadow-sm" />
         </Col>
         <Col md={6} className="d-flex flex-column justify-content-center">
           <h3 className="fw-bold">{product.name}</h3>

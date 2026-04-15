@@ -2,6 +2,7 @@ import React from 'react';
 import Hero from '../components/Hero';
 import FeaturedProducts from '../components/FeaturedProducts';
 import { Container, Row, Col } from 'react-bootstrap';
+import API_BASE from '../config';
 
 function Home() {
   return (
@@ -20,7 +21,7 @@ function Home() {
               <div className="category-card">
                 <div className="bg-overlay"></div>
                 <img 
-                  src="http://localhost:5000/uploads/sofa.png" 
+                  src={`${API_BASE}/uploads/sofa.png`} 
                   className="w-100 h-100 object-fit-cover position-absolute" 
                   alt="Living Room"
                   onError={(e) => { e.target.src = 'https://via.placeholder.com/600x400?text=Placeholder+Image'; }}
@@ -38,7 +39,7 @@ function Home() {
                   <div className="category-card" style={{ height: '238px' }}>
                     <div className="bg-overlay"></div>
                     <img 
-                      src="http://localhost:5000/uploads/table.png" 
+                      src={`${API_BASE}/uploads/table.png`} 
                       className="w-100 h-100 object-fit-cover position-absolute" 
                       alt="Bedroom"
                       onError={(e) => { e.target.src = 'https://via.placeholder.com/600x400?text=Placeholder+Image'; }}
@@ -53,7 +54,7 @@ function Home() {
                   <div className="category-card" style={{ height: '238px' }}>
                     <div className="bg-overlay"></div>
                     <img 
-                      src="http://localhost:5000/uploads/chair.png" 
+                      src={`${API_BASE}/uploads/chair.png`} 
                       className="w-100 h-100 object-fit-cover position-absolute" 
                       alt="Office"
                       onError={(e) => { e.target.src = 'https://via.placeholder.com/600x400?text=Placeholder+Image'; }}

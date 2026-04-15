@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import ProductCard from './ProductCard';
+import API_BASE from '../config';
 
 const FeaturedProducts = () => {
   const [products, setProducts] = useState([]);
@@ -9,7 +10,7 @@ const FeaturedProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/products');
+        const { data } = await axios.get(`${API_BASE}/api/products`);
         setProducts(data.slice(0, 4)); // Get first 4 products
       } catch (err) {
         console.error(err);
@@ -36,7 +37,7 @@ const FeaturedProducts = () => {
             <Col key={product._id} md={6} lg={3}>
               <ProductCard 
                  id={product._id}
-                 image={product.image.startsWith('/') ? `http://localhost:5000${product.image}` : product.image} 
+                 image={product.image.startsWith('/') ? `${API_BASE}${product.image}` : product.image} 
                  title={product.name} 
                  category={product.category} 
                  price={product.price}
